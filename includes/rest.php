@@ -13,6 +13,7 @@
  *   texts          {"ca": {"text", "accept", "reject", "settings", ...}}: cambia los textos (ver config.php).
  *   color          color de los botones (#hex).
  *   categories     ["analytics", "marketing"]: categorías que se ofrecen en «Configurar».
+ *   position       "left" | "right": esquina del banner (por defecto "left").
  *   floating       "left" | "right" | false: botón flotante para cambiar la elección (por defecto "left").
  *   cookies        lista de la tabla: claves del catálogo ("_gcl_au", "_fbp", "wpml"...) o fichas
  *                  {"name", "provider", "category", "purpose": {"ca","es"}, "duration": {"ca","es"}}.
@@ -89,6 +90,9 @@ function eg_cookies_rest_config( WP_REST_Request $r ) {
 	}
 	if ( array_key_exists( 'log_days', $p ) ) {
 		$after['log_days'] = max( 30, (int) $p['log_days'] );
+	}
+	if ( array_key_exists( 'position', $p ) ) {
+		$after['position'] = 'right' === $p['position'] ? 'right' : 'left';
 	}
 	if ( array_key_exists( 'floating', $p ) ) {
 		$f                 = $p['floating'];

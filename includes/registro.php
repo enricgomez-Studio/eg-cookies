@@ -77,7 +77,7 @@ function eg_cookies_log_insert( array $data ) {
 		'consent_id' => substr( preg_replace( '/[^A-Za-z0-9-]/', '', (string) ( $data['id'] ?? '' ) ), 0, 64 ),
 		'analytics'  => empty( $data['analytics'] ) ? 0 : 1,
 		'marketing'  => empty( $data['marketing'] ) ? 0 : 1,
-		'action'     => in_array( $data['action'] ?? '', array( 'accept', 'reject', 'save' ), true ) ? $data['action'] : '',
+		'action'     => in_array( $data['action'] ?? '', array( 'accept', 'reject', 'save', 'close' ), true ) ? $data['action'] : '',
 		'revision'   => max( 1, min( 65535, (int) ( $data['rev'] ?? 1 ) ) ),
 		'lang'       => substr( sanitize_key( (string) ( $data['lang'] ?? '' ) ), 0, 8 ),
 		'url'        => substr( esc_url_raw( (string) ( $data['url'] ?? '' ) ), 0, 255 ),
