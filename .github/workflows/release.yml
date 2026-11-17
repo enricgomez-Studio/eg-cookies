@@ -1,0 +1,59 @@
+name: Release
+
+# Al subir a main un cambio de versión en eg-cookies.php se crea la release
+# vX.Y.Z con eg-cookies.zip, que es lo que descargan las webs para
+# actualizarse. Si la release de esa versión ya existe, no hace nada.
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'eg-cookies.php'
+      - 'includes/**'
+      - '.github/workflows/release.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Leer la versión del plugin
+        id: version
+        run: |
+          HEADER=$(grep -m1 -E '^\s*\*\s*Version:' eg-cookies.php | awk '{print $NF}')
+          CONST=$(grep -m1 "EG_COOKIES_VERSION =" eg-cookies.php | sed -E "s/.*'([^']+)'.*/\1/")
+          echo "cabecera=$HEADER constante=$CONST"
+          if [ "$HEADER" != "$CONST" ]; then
+            echo "::error::La versión de la cabecera ($HEADER) y EG_COOKIES_VERSION ($CONST) no coinciden."
+            exit 1
+          fi
+          echo "tag=v$HEADER" >> "$GITHUB_OUTPUT"
+
+      - name: Comprobar si la release ya existe
+        id: exists
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view "${{ steps.version.outputs.tag }}" >/dev/null 2>&1; then
+            echo "La release ${{ steps.version.outputs.tag }} ya existe: no se publica nada."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Crear el zip
+        if: steps.exists.outputs.skip != 'true'
+        run: |
+          mkdir -p build/eg-cookies
+          cp -r eg-cookies.php includes build/eg-cookies/
+          cd build && zip -r ../eg-cookies.zip eg-cookies
+
+      - name: Publicar la release
+        if: steps.exists.outputs.skip != 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "${{ steps.version.outputs.tag }}" eg-cookies.zip \
+            --target "$GITHUB_SHA" --title "${{ steps.version.outputs.tag }}" --generate-notes
