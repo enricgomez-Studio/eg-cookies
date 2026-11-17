@@ -1,6 +1,6 @@
 <?php
 /**
- * Actualizaciones desde las releases de GitHub (enricgomez/eg-cookies).
+ * Actualizaciones desde las releases de GitHub (enricgomez-Studio/eg-cookies).
  *
  * Cada release lleva adjunto eg-cookies.zip (lo genera la GitHub Action al
  * subir a main una versión nueva). Si el repositorio es privado, definir en wp-config.php:
