@@ -9,6 +9,10 @@
  * Author URI:        https://www.enricgomez.com
  * Update URI:        https://github.com/enricgomez/eg-cookies
  * Text Domain:       eg-cookies
+ * License:           GPL-2.0-or-later
+ * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
+ *
+ * Copyright (C) 2026 EG Creative Studio, S.L. (enricgomez Studio)
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
