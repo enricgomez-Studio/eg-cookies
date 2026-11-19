@@ -2,6 +2,10 @@
 
 De lo más nuevo a lo más antiguo. Cada entrada indica la versión, la fecha (UTC), el PR, qué cambia y a qué webs afecta.
 
+## 1.0.2 · 19/11/2026 · (Claude, a petición de Enric)
+
+- Los enlaces a `#galetes` también abren el panel de cookies, como `#cookies`. Así las políticas en catalán que ya enlazan «configurar galetes» funcionan sin tocarlas (bowling-golf.cat).
+
 ## 1.0.1 · 17/11/2026 · (Claude, a petición de Enric)
 
 - El repositorio pasa a la organización del estudio: `enricgomez-Studio/eg-cookies`. Las actualizaciones se leen de ahí (GitHub redirige la dirección antigua, así que las webs con la 1.0.0 llegan igualmente a esta versión).
