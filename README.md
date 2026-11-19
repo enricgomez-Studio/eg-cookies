@@ -6,7 +6,7 @@ Banner de cookies de enricgomez Studio para WordPress, con Google Consent Mode v
 
 - **Consentimiento por defecto denegado** en el `<head>`, antes de cualquier etiqueta de Google. Al aceptar se manda `consent update` (analítica → `analytics_storage`; marketing → `ad_storage`, `ad_user_data`, `ad_personalization`).
 - **Banner** con Aceptar y Rechazar con el mismo peso visual, y **Configurar** con las categorías (necesarias siempre activas, analítica y marketing desmarcadas por defecto).
-- **Botón flotante** (izquierda por defecto) para cambiar la elección en cualquier momento, también en móvil. Cualquier enlace a `#cookies` también abre el panel.
+- **Botón flotante** (izquierda por defecto) para cambiar la elección en cualquier momento, también en móvil. Cualquier enlace a `#cookies` (o `#galetes`) también abre el panel.
 - **Retirar el consentimiento** borra las cookies de esa categoría (`_ga*`, `_gcl_*`, `_fbp`...) y recarga la página.
 - **Scripts bloqueados hasta aceptar**: `<script type="text/plain" data-eg-category="analytics">` (o `marketing`) se ejecuta solo al aceptar esa categoría.
 - **Tabla de cookies** de cada web (`[eg_cookies_tabla]`, y `[eg_cookies_boton]` para el botón de cambiar la elección). Se añade sola al final de la página de la política de cookies configurada.

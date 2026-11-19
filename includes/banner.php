@@ -135,7 +135,7 @@ box.addEventListener('click',function(e){var b=e.target.closest('[data-eg-act]')
 if(act==='accept')save(1,1,'accept');else if(act==='reject')save(0,0,'reject');else if(act==='close')save(0,0,'close');else if(act==='settings')settings(true);
 else if(act==='save'){var v={a:0,m:0};box.querySelectorAll('[data-eg-cat]').forEach(function(i){v[i.getAttribute('data-eg-cat').charAt(0)]=i.checked?1:0;});save(v.a,v.m,'save');}});
 if(fab)fab.addEventListener('click',function(){show(true);});
-document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href$="#cookies"],a[href$="#eg-cookies"],[data-eg-cookies-open]');if(a){e.preventDefault();show(true);}});
+document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href$="#cookies"],a[href$="#galetes"],a[href$="#eg-cookies"],[data-eg-cookies-open]');if(a){e.preventDefault();show(true);}});
 window.egCookies={open:function(){show(true);},state:function(){var s=read();return valid(s)?{analytics:!!s.a,marketing:!!s.m}:null;}};
 var s=read();if(valid(s)){if(s.a)run('analytics');if(s.m)run('marketing');hide();}else{show(false);}})(<?php echo wp_json_encode( $cfg, JSON_UNESCAPED_SLASHES ); ?>);</script>
 	<?php
