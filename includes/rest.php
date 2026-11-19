@@ -181,6 +181,7 @@ function eg_cookies_rest_config( WP_REST_Request $r ) {
 		'before'  => $before,
 		'cookies' => eg_cookies_list(),
 		'ga4'     => eg_cookies_ga4_id(),
+		'conflicts' => eg_cookies_conflicts( ! isset( $p['check'] ) || rest_sanitize_boolean( $p['check'] ) ),
 		'log'     => eg_cookies_log_summary( (int) ( $p['log_rows'] ?? 10 ), sanitize_text_field( (string) ( $p['consent_id'] ?? '' ) ) ),
 	), 200 );
 }

@@ -2,6 +2,10 @@
 
 De lo más nuevo a lo más antiguo. Cada entrada indica la versión, la fecha (UTC), el PR, qué cambia y a qué webs afecta.
 
+## 1.0.4 · 19/11/2026 · (Claude)
+
+- `POST /cookies` devuelve de verdad la clave `conflicts` (en la 1.0.3 faltaba en la respuesta).
+
 ## 1.0.3 · 19/11/2026 · (Claude, a petición de Enric)
 
 - EG Cookies tiene que ser el único aviso de cookies de la web: detecta plugins de cookies conocidos activos (aviso en el escritorio) y revisa la portada por si hay otro «consent default» de Google, otro banner conocido o una etiqueta de Google Analytics de más. Se ve en Ajustes → EG Cookies y en `POST /cookies` (clave `conflicts`; `check: false` para no revisarlo).
