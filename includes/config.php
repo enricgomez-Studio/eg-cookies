@@ -163,9 +163,10 @@ function eg_cookies_ga4_id() {
 function eg_cookies_lang() {
 	$lang = apply_filters( 'wpml_current_language', null );
 	if ( ! $lang ) {
-		$lang = substr( get_locale(), 0, 2 );
+		$lang = get_locale();
 	}
-	return sanitize_key( (string) $lang );
+	// «en-gb», «pt-br», «es_ES»… → «en», «pt», «es».
+	return substr( sanitize_key( str_replace( '_', '-', (string) $lang ) ), 0, 2 );
 }
 
 /** Textos en el idioma actual, con los cambios de la configuración. */
