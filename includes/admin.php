@@ -35,6 +35,20 @@ function eg_cookies_admin_page() {
 		echo '</p>';
 	}
 	echo '<p>La configuración se cambia desde Make con EG Publicación (<code>POST /wp-json/eg/v1/cookies</code>). Shortcodes: <code>[eg_cookies_tabla]</code> y <code>[eg_cookies_boton]</code>.</p>';
+	$cf = eg_cookies_conflicts();
+	echo '<h2>Otros avisos de cookies</h2>';
+	if ( $cf['ok'] ) {
+		echo '<p>✅ No se ha encontrado ningún otro aviso ni plugin de cookies.</p>';
+	} else {
+		echo '<div class="notice notice-warning inline"><ul style="list-style:disc;padding-left:20px">';
+		foreach ( $cf['plugins'] as $pl ) {
+			echo '<li>Plugin activo: ' . esc_html( $pl['name'] ) . ' (<code>' . esc_html( $pl['plugin'] ) . '</code>)</li>';
+		}
+		foreach ( (array) $cf['html'] as $line ) {
+			echo '<li>' . esc_html( $line ) . '</li>';
+		}
+		echo '</ul></div>';
+	}
 	echo '<h2>Cookies de la web</h2>' . eg_cookies_table_html( array( 'lang' => 'es' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	echo '<h2>Registro de consentimientos</h2>';
 	echo '<p>Total: <strong>' . (int) $log['total'] . '</strong> · Aceptan todo: ' . (int) ( $log['all_accepted'] ?? 0 ) . ' · Rechazan todo: ' . (int) ( $log['all_rejected'] ?? 0 )

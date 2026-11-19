@@ -26,6 +26,7 @@
  *   booking_hosts  ["reservas.ejemplo.com"]: enlaces que cuentan como pedir_cita.
  *   rules          [{"event": "soy_clinica", "href": "/contacte/"}]: otros clics, por un trozo del enlace.
  *   log_rows       número de filas del registro en la respuesta (por defecto 10). consent_id: filas de un visitante.
+ *   check          true/false (por defecto true): revisa si hay otros avisos de cookies (clave «conflicts»).
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
