@@ -20,6 +20,7 @@
  *   cookies_auto   true/false (por defecto true): añade solas GA4 (si hay ID) y WooCommerce.
  *   table_auto     true/false (por defecto true): añade la tabla al final de la página de la política.
  *   ga4            "G-XXXX": ID de GA4 para la tabla (si no, la de EG Publicación /seo-tech).
+ *   ads            ["AW-123456789"]: Google Ads, configurado con gtag y sujeto al consentimiento de marketing.
  *   revision       número o "bump": al subirla se vuelve a pedir el consentimiento a todo el mundo.
  *   log            true/false (por defecto true): registro de consentimientos. log_days: días que se guardan.
  *   events         true/false (por defecto true): clics a GA4 (teléfono, WhatsApp, booking_hosts, rules).
@@ -88,6 +89,12 @@ function eg_cookies_rest_config( WP_REST_Request $r ) {
 	if ( array_key_exists( 'ga4', $p ) ) {
 		$ga4          = strtoupper( trim( (string) $p['ga4'] ) );
 		$after['ga4'] = preg_match( '/^G-[A-Z0-9]{4,20}$/', $ga4 ) ? $ga4 : '';
+	}
+	if ( isset( $p['ads'] ) ) {
+		$after['ads'] = array_values( array_filter( array_map( function ( $id ) {
+			$id = strtoupper( trim( (string) $id ) );
+			return preg_match( '/^AW-[0-9]{6,15}$/', $id ) ? $id : '';
+		}, (array) $p['ads'] ) ) );
 	}
 	if ( array_key_exists( 'log_days', $p ) ) {
 		$after['log_days'] = max( 30, (int) $p['log_days'] );

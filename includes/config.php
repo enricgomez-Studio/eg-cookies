@@ -198,6 +198,14 @@ function eg_cookies_policy_url( $lang = null ) {
  * Lista de cookies de la web: las necesarias del banner, las que detecta (GA4, WPML, WooCommerce) y las de
  * `cookies` en la configuración (claves del catálogo o fichas propias). `cookies_auto: false` quita la detección.
  */
+/** IDs de Google Ads (AW-…) que EG Cookies configura con gtag, sujetas al consentimiento de marketing. */
+function eg_cookies_ads_ids() {
+	$c = eg_cookies_config();
+	return array_values( array_filter( (array) ( $c['ads'] ?? array() ), function ( $id ) {
+		return (bool) preg_match( '/^AW-[0-9]{6,15}$/', (string) $id );
+	} ) );
+}
+
 function eg_cookies_list() {
 	$c       = eg_cookies_config();
 	$catalog = eg_cookies_catalog();
@@ -206,6 +214,9 @@ function eg_cookies_list() {
 		if ( eg_cookies_ga4_id() ) {
 			$keys[] = '_ga';
 			$keys[] = '_ga_session';
+		}
+		if ( eg_cookies_ads_ids() ) {
+			$keys[] = '_gcl_au';
 		}
 		if ( class_exists( 'WooCommerce' ) ) {
 			$keys[] = 'woocommerce';

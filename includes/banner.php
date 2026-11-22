@@ -31,6 +31,29 @@ add_action( 'wp_head', function () {
 		. "gtag('set','ads_data_redaction',k!=='granted');})();</script>\n";
 }, 0 );
 
+/**
+ * Google Ads (AW-…): se configura detrás de la etiqueta de GA4 de EG Publicación (prioridad 1).
+ * Con Consent Mode, Ads no guarda cookies ni personaliza hasta que se aceptan las de marketing.
+ * Si la web no tiene GA4 en EG Publicación, carga gtag.js con la primera ID de Ads.
+ */
+add_action( 'wp_head', function () {
+	$ads = eg_cookies_ads_ids();
+	if ( ! $ads || ! eg_cookies_should_print() ) {
+		return;
+	}
+	$out = '';
+	if ( ! (string) get_option( 'eg_pub_ga4_id', '' ) ) {
+		$out .= '<script async src="https://www.googletagmanager.com/gtag/js?id=' . esc_attr( $ads[0] ) . '"></script>' . "\n";
+		$out .= "<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());";
+	} else {
+		$out .= '<script>';
+	}
+	foreach ( $ads as $id ) {
+		$out .= "gtag('config','" . esc_js( $id ) . "');";
+	}
+	echo $out . "</script>\n"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+}, 2 );
+
 add_action( 'wp_footer', 'eg_cookies_footer', 5 );
 
 function eg_cookies_footer() {
