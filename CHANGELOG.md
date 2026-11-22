@@ -2,6 +2,10 @@
 
 De lo más nuevo a lo más antiguo. Cada entrada indica la versión, la fecha (UTC), el PR, qué cambia y a qué webs afecta.
 
+## 1.0.5 · 22/11/2026 · (Claude, a petición de Enric)
+
+- Google Ads: `ads: ["AW-…"]` en `POST /cookies` configura las etiquetas de Ads con gtag (detrás de la de GA4 de EG Publicación, o cargando gtag.js si no hay GA4). Con Consent Mode no guardan cookies ni personalizan hasta que se aceptan las de marketing. Añade `_gcl_au` a la tabla. Para sustituir Complianz en nuriagrima.cat, que tenía GA4 y Google Ads.
+
 ## 1.0.4 · 19/11/2026 · (Claude)
 
 - `POST /cookies` devuelve de verdad la clave `conflicts` (en la 1.0.3 faltaba en la respuesta).
