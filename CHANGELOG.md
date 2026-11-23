@@ -2,6 +2,10 @@
 
 De lo más nuevo a lo más antiguo. Cada entrada indica la versión, la fecha (UTC), el PR, qué cambia y a qué webs afecta.
 
+## 1.0.6 · 23/11/2026 · (Claude, a petición de Enric)
+
+- `cookie_domain: ".ejemplo.com"` en `POST /cookies`: guarda `eg_consent` y `eg_consent_id` para todo el dominio, para que un subdominio (p. ej. la plataforma de reservas) pueda leer la elección. Solo se aplica si el host de la web está dentro de ese dominio; al guardarla borra la copia antigua del host. El formato del valor no cambia. Al rechazar ya se borraban las `_ga*` del dominio raíz. Para Sonovet (reservas.sonovet.net). Las demás webs no cambian.
+
 ## 1.0.5 · 22/11/2026 · (Claude, a petición de Enric)
 
 - Google Ads: `ads: ["AW-…"]` en `POST /cookies` configura las etiquetas de Ads con gtag (detrás de la de GA4 de EG Publicación, o cargando gtag.js si no hay GA4). Con Consent Mode no guardan cookies ni personalizan hasta que se aceptan las de marketing. Añade `_gcl_au` a la tabla. Para sustituir Complianz en nuriagrima.cat, que tenía GA4 y Google Ads.

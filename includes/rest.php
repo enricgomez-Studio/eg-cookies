@@ -21,6 +21,8 @@
  *   table_auto     true/false (por defecto true): añade la tabla al final de la página de la política.
  *   ga4            "G-XXXX": ID de GA4 para la tabla (si no, la de EG Publicación /seo-tech).
  *   ads            ["AW-123456789"]: Google Ads, configurado con gtag y sujeto al consentimiento de marketing.
+ *   cookie_domain  ".ejemplo.com": guarda eg_consent y eg_consent_id para todo el dominio (subdominios incluidos).
+ *                  Solo se aplica si el host de la web está dentro de ese dominio. "" vuelve a solo el host.
  *   revision       número o "bump": al subirla se vuelve a pedir el consentimiento a todo el mundo.
  *   log            true/false (por defecto true): registro de consentimientos. log_days: días que se guardan.
  *   events         true/false (por defecto true): clics a GA4 (teléfono, WhatsApp, booking_hosts, rules).
@@ -95,6 +97,10 @@ function eg_cookies_rest_config( WP_REST_Request $r ) {
 			$id = strtoupper( trim( (string) $id ) );
 			return preg_match( '/^AW-[0-9]{6,15}$/', $id ) ? $id : '';
 		}, (array) $p['ads'] ) ) );
+	}
+	if ( array_key_exists( 'cookie_domain', $p ) ) {
+		$dom                   = ltrim( strtolower( trim( (string) $p['cookie_domain'] ) ), '.' );
+		$after['cookie_domain'] = preg_match( '/^[a-z0-9-]+(\.[a-z0-9-]+)+$/', $dom ) ? '.' . $dom : '';
 	}
 	if ( array_key_exists( 'log_days', $p ) ) {
 		$after['log_days'] = max( 30, (int) $p['log_days'] );
