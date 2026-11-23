@@ -74,6 +74,7 @@ function eg_cookies_footer() {
 		'log'  => ( ! isset( $c['log'] ) || ! empty( $c['log'] ) ) ? esc_url_raw( rest_url( 'eg-cookies/v1/consent' ) ) : '',
 		'lang' => $lang,
 		'fab'  => (bool) $fab,
+		'dom'  => eg_cookies_cookie_domain(),
 	);
 	?>
 <div id="eg-cookies" class="eg-ck<?php echo 'right' === ( $c['position'] ?? '' ) ? ' eg-ck-right' : ''; ?>" role="dialog" aria-label="<?php echo esc_attr( $t['title'] ); ?>" aria-describedby="eg-ck-text" data-nosnippet hidden>
@@ -142,7 +143,7 @@ var prefs=box.querySelector('.eg-ck-prefs'),bSet=box.querySelector('[data-eg-act
 function read(){var m=document.cookie.match(/(?:^|; )eg_consent=([^;]+)/),v=m?m[1]:'',x;if(v==='granted')return{a:1,m:1,r:1};if(v==='denied')return{a:0,m:0,r:1};x=v.match(/^a([01])m([01])r(\d+)/);return x?{a:+x[1],m:+x[2],r:+x[3]}:null;}
 function valid(s){return s&&s.r>=cfg.rev;}
 function cid(){var m=document.cookie.match(/(?:^|; )eg_consent_id=([A-Za-z0-9-]+)/);if(m)return m[1];return window.crypto&&crypto.randomUUID?crypto.randomUUID():(Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,12));}
-function ck(n,v){document.cookie=n+'='+v+'; Max-Age=15552000; path=/; SameSite=Lax'+(location.protocol==='https:'?'; Secure':'');}
+function ck(n,v){if(cfg.dom){document.cookie=n+'=; Max-Age=0; path=/';}document.cookie=n+'='+v+'; Max-Age=15552000; path=/'+(cfg.dom?'; domain='+cfg.dom:'')+'; SameSite=Lax'+(location.protocol==='https:'?'; Secure':'');}
 function clear(re){var h=location.hostname.replace(/^www\./,''),p=h.split('.'),root=p.slice(-2).join('.');document.cookie.split('; ').forEach(function(c){var n=c.split('=')[0];if(re.test(n)){['',h,'.'+h,'.'+root].forEach(function(d){document.cookie=n+'=; Max-Age=0; path=/'+(d?'; domain='+d:'');});}});}
 function run(cat){document.querySelectorAll('script[type="text/plain"][data-eg-category="'+cat+'"]').forEach(function(s){var n=document.createElement('script');for(var i=0;i<s.attributes.length;i++){var at=s.attributes[i];if(at.name!=='type'&&at.name!=='data-eg-category')n.setAttribute(at.name,at.value);}n.text=s.text;s.parentNode.replaceChild(n,s);});}
 function apply(s){var a=s.a?'granted':'denied',k=s.m?'granted':'denied';if(window.gtag){gtag('consent','update',{analytics_storage:a,ad_storage:k,ad_user_data:k,ad_personalization:k});gtag('set','ads_data_redaction',!s.m);}if(s.a)run('analytics');if(s.m)run('marketing');

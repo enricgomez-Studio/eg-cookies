@@ -247,3 +247,18 @@ function eg_cookies_i18n( $value, $lang ) {
 	}
 	return (string) $value;
 }
+
+/**
+ * Dominio de las cookies de consentimiento (opción `cookie_domain`), p. ej. «.sonovet.net» para que
+ * subdominios como reservas.sonovet.net puedan leer eg_consent. Vacío = solo el host actual.
+ * Solo vale si el host de la web termina en ese dominio.
+ */
+function eg_cookies_cookie_domain() {
+	$c   = eg_cookies_config();
+	$dom = ltrim( strtolower( (string) ( $c['cookie_domain'] ?? '' ) ), '.' );
+	if ( '' === $dom || ! preg_match( '/^[a-z0-9-]+(\.[a-z0-9-]+)+$/', $dom ) ) {
+		return '';
+	}
+	$host = strtolower( (string) wp_parse_url( home_url(), PHP_URL_HOST ) );
+	return ( $host === $dom || substr( $host, -strlen( '.' . $dom ) ) === '.' . $dom ) ? '.' . $dom : '';
+}
