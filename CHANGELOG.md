@@ -2,6 +2,10 @@
 
 De lo más nuevo a lo más antiguo. Cada entrada indica la versión, la fecha (UTC), el PR, qué cambia y a qué webs afecta.
 
+## 1.0.10 · 24/11/2026 · (Claude, a petición de Enric)
+
+- Quita de la descripción del plugin y de Ajustes → EG Cookies las referencias a cómo se configura y se actualiza. Todas las webs.
+
 ## 1.0.9 · 24/11/2026 · (Claude)
 
 - Incluye de verdad el control del «order attribution» de WooCommerce descrito en la 1.0.8 (en la 1.0.8 solo entró el borrado de `sbjs_*` al rechazar).

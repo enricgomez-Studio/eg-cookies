@@ -34,7 +34,7 @@ function eg_cookies_admin_page() {
 		}
 		echo '</p>';
 	}
-	echo '<p>La configuración se cambia desde Make con EG Publicación (<code>POST /wp-json/eg/v1/cookies</code>). Shortcodes: <code>[eg_cookies_tabla]</code> y <code>[eg_cookies_boton]</code>.</p>';
+	echo '<p>Shortcodes: <code>[eg_cookies_tabla]</code> y <code>[eg_cookies_boton]</code>.</p>';
 	$cf = eg_cookies_conflicts();
 	echo '<h2>Otros avisos de cookies</h2>';
 	if ( $cf['ok'] ) {
