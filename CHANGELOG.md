@@ -2,6 +2,10 @@
 
 De lo más nuevo a lo más antiguo. Cada entrada indica la versión, la fecha (UTC), el PR, qué cambia y a qué webs afecta.
 
+## 1.0.8 · 24/11/2026 · (Claude, a petición de Enric)
+
+- WooCommerce «order attribution» (cookies `sbjs_*`) ya no arranca antes del consentimiento: se apaga en el HTML (`wc_order_attribution_allow_tracking`) y se enciende en el navegador con `setOrderTracking(true)` cuando se aceptan las de analítica. Al rechazar, se borran también las `sbjs_*`. Para clubdelviatger.cat; vale para cualquier web con WooCommerce.
+
 ## 1.0.7 · 24/11/2026 · (Claude, a petición de Enric)
 
 - Con EG Cookies activo se apaga el Consent Mode de Site Kit (filtro sobre `googlesitekit_consent_mode`): su «consent default» por regiones se pintaba después del nuestro y lo anulaba. La etiqueta de GA4 de Site Kit sigue cargando bajo el consentimiento de EG Cookies. Antes se apagaba a mano en cada web (andresdiez.com). Para clubdelviatger.cat.
