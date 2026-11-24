@@ -201,3 +201,22 @@ add_filter( 'option_googlesitekit_consent_mode', function ( $value ) {
 	$value['enabled'] = false;
 	return $value;
 } );
+
+/**
+ * WooCommerce «order attribution» (cookies sbjs_*: de dónde viene cada pedido) es medición: no arranca hasta
+ * que se aceptan las de analítica. Se apaga en el HTML (vale para la caché) y se enciende en el navegador con
+ * setOrderTracking(true) cuando hay consentimiento, ahora o al aceptar.
+ */
+add_filter( 'wc_order_attribution_allow_tracking', function ( $allow ) {
+	return eg_cookies_enabled() ? false : $allow;
+}, 99 );
+
+add_action( 'wp_footer', function () {
+	if ( ! eg_cookies_should_print() || ! class_exists( 'WooCommerce' ) ) {
+		return;
+	}
+	echo "<script data-cfasync=\"false\" nowprocket>(function(){function on(){var w=window.wc_order_attribution;if(w&&typeof w.setOrderTracking==='function'&&!w.params.allowTracking){w.setOrderTracking(true);}}"
+		. "function ok(){var m=document.cookie.match(/(?:^|; )eg_consent=([^;]+)/),v=m?m[1]:'';return v==='granted'||/^a1/.test(v);}"
+		. "document.addEventListener('eg_cookies',function(e){if(e.detail&&e.detail.analytics)on();});"
+		. "window.addEventListener('load',function(){if(ok())on();});})();</script>\n";
+}, 100 );

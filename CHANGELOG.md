@@ -2,6 +2,10 @@
 
 De lo más nuevo a lo más antiguo. Cada entrada indica la versión, la fecha (UTC), el PR, qué cambia y a qué webs afecta.
 
+## 1.0.9 · 24/11/2026 · (Claude)
+
+- Incluye de verdad el control del «order attribution» de WooCommerce descrito en la 1.0.8 (en la 1.0.8 solo entró el borrado de `sbjs_*` al rechazar).
+
 ## 1.0.8 · 24/11/2026 · (Claude, a petición de Enric)
 
 - WooCommerce «order attribution» (cookies `sbjs_*`) ya no arranca antes del consentimiento: se apaga en el HTML (`wc_order_attribution_allow_tracking`) y se enciende en el navegador con `setOrderTracking(true)` cuando se aceptan las de analítica. Al rechazar, se borran también las `sbjs_*`. Para clubdelviatger.cat; vale para cualquier web con WooCommerce.
