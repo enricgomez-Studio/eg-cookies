@@ -2,6 +2,10 @@
 
 De lo más nuevo a lo más antiguo. Cada entrada indica la versión, la fecha (UTC), el PR, qué cambia y a qué webs afecta.
 
+## 1.0.7 · 24/11/2026 · (Claude, a petición de Enric)
+
+- Con EG Cookies activo se apaga el Consent Mode de Site Kit (filtro sobre `googlesitekit_consent_mode`): su «consent default» por regiones se pintaba después del nuestro y lo anulaba. La etiqueta de GA4 de Site Kit sigue cargando bajo el consentimiento de EG Cookies. Antes se apagaba a mano en cada web (andresdiez.com). Para clubdelviatger.cat.
+
 ## 1.0.6 · 23/11/2026 · (Claude, a petición de Enric)
 
 - `cookie_domain: ".ejemplo.com"` en `POST /cookies`: guarda `eg_consent` y `eg_consent_id` para todo el dominio, para que un subdominio (p. ej. la plataforma de reservas) pueda leer la elección. Solo se aplica si el host de la web está dentro de ese dominio; al guardarla borra la copia antigua del host. El formato del valor no cambia. Al rechazar ya se borraban las `_ga*` del dominio raíz. Para Sonovet (reservas.sonovet.net). Las demás webs no cambian.

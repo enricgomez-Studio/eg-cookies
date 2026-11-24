@@ -187,3 +187,17 @@ if(!ev){for(i=0;i<c.rules.length;i++){if(c.rules[i].href&&h.indexOf(c.rules[i].h
 if(ev&&window.gtag){gtag('event',ev,{link_url:h,idioma:c.lang,pagina:location.pathname});}},true);})(<?php echo wp_json_encode( $cfg, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE ); ?>);</script>
 	<?php
 }
+
+/**
+ * Site Kit: con EG Cookies activo, su Consent Mode se apaga. Su «consent default» por regiones (EEE) se
+ * pintaría después del nuestro y lo anularía; la etiqueta de GA4 de Site Kit sigue cargando y respeta el
+ * consentimiento de EG Cookies (andresdiez.com, clubdelviatger.cat).
+ */
+add_filter( 'option_googlesitekit_consent_mode', function ( $value ) {
+	if ( ! eg_cookies_enabled() ) {
+		return $value;
+	}
+	$value            = is_array( $value ) ? $value : array();
+	$value['enabled'] = false;
+	return $value;
+} );
