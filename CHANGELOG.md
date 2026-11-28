@@ -2,6 +2,10 @@
 
 De lo más nuevo a lo más antiguo. Cada entrada indica la versión, la fecha (UTC), el PR, qué cambia y a qué webs afecta.
 
+## 1.0.11 · 28/11/2026 · (Claude, a petición de Enric)
+
+- `policy_page` (ID de página): la política de cookies se toma de esa página y, con WPML, de su traducción en cada idioma, sin tener que poner una URL por idioma. Las URL de `policy` por idioma siguen mandando si están. Para el despliegue en todas las webs del servidor.
+
 ## 1.0.10 · 24/11/2026 · (Claude, a petición de Enric)
 
 - Quita de la descripción del plugin y de Ajustes → EG Cookies las referencias a cómo se configura y se actualiza. Todas las webs.

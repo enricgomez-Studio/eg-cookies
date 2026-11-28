@@ -58,7 +58,7 @@ add_filter( 'the_content', function ( $content ) {
 		return $content;
 	}
 	$policy = eg_cookies_policy_url();
-	if ( ! $policy || empty( $c['policy'] ) ) {
+	if ( ! $policy || ( empty( $c['policy'] ) && empty( $c['policy_page'] ) ) ) {
 		return $content; // Sin política configurada no se adivina la página.
 	}
 	$want = untrailingslashit( (string) wp_parse_url( $policy, PHP_URL_PATH ) );
