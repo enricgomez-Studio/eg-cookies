@@ -187,7 +187,18 @@ function eg_cookies_policy_url( $lang = null ) {
 	$c      = eg_cookies_config();
 	$all    = array_filter( (array) ( $c['policy'] ?? array() ), 'strlen' );
 	// Sin WPML (o idioma sin política propia): la del castellano o la primera que haya.
-	$policy = (string) ( $all[ $lang ] ?? ( apply_filters( 'wpml_current_language', null ) ? '' : ( $all['es'] ?? ( $all ? reset( $all ) : '' ) ) ) );
+	$policy = (string) ( $all[ $lang ] ?? '' );
+	// Página de la política por ID: con WPML, su traducción al idioma actual.
+	if ( '' === $policy && ! empty( $c['policy_page'] ) ) {
+		$id  = (int) apply_filters( 'wpml_object_id', (int) $c['policy_page'], 'page', true, $lang );
+		$url = $id && 'publish' === get_post_status( $id ) ? get_permalink( $id ) : '';
+		if ( $url ) {
+			return $url;
+		}
+	}
+	if ( '' === $policy ) {
+		$policy = (string) ( apply_filters( 'wpml_current_language', null ) ? '' : ( $all['es'] ?? ( $all ? reset( $all ) : '' ) ) );
+	}
 	if ( '' === $policy ) {
 		return (string) get_privacy_policy_url();
 	}

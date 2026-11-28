@@ -10,6 +10,7 @@
  *                                         Los cambios solo se previsualizan; apply:true guarda y vacía la caché.
  *   enabled        true/false: banner y consentimiento por defecto denegado en el <head>.
  *   policy         {"ca": "/politica-de-cookies/", "es": "/es/politica-de-cookies/"}: política por idioma (WPML).
+ *   policy_page    ID de la página de la política: con WPML se usa su traducción en cada idioma (si no hay `policy` del idioma).
  *   texts          {"ca": {"text", "accept", "reject", "settings", ...}}: cambia los textos (ver config.php).
  *   color          color de los botones (#hex).
  *   categories     ["analytics", "marketing"]: categorías que se ofrecen en «Configurar».
@@ -117,6 +118,9 @@ function eg_cookies_rest_config( WP_REST_Request $r ) {
 	}
 	if ( isset( $p['revision'] ) ) {
 		$after['revision'] = 'bump' === $p['revision'] ? eg_cookies_revision() + 1 : max( 1, (int) $p['revision'] );
+	}
+	if ( array_key_exists( 'policy_page', $p ) ) {
+		$after['policy_page'] = max( 0, (int) $p['policy_page'] );
 	}
 	if ( isset( $p['policy'] ) && is_array( $p['policy'] ) ) {
 		foreach ( $p['policy'] as $lang => $url ) {
